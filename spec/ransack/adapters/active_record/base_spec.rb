@@ -63,6 +63,11 @@ module Ransack
               expect(s.result.to_sql).to (include 'age > 18')
             end
 
+            it "passes truthy integers to scopes" do
+              s = Person.ransack('over_age' => 1)
+              expect(s.result.to_sql).to (include 'age > 1')
+            end
+
             it "chains scopes" do
               s = Person.ransack('over_age' => 18, 'active' => true)
               expect(s.result.to_sql).to (include 'age > 18')
